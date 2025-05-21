@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>WhatsApp QR</title></head>
+<body>
+  <h1>Scan WhatsApp QR Code</h1>
+  <img id="qrImg" alt=" QR code will appear here" />
+  <script>
+    async function fetchQR() {
+      const res = await fetch('/qr');
+      if (!res.ok) {
+        document.getElementById('qrImg').alt = ' No QR code available';
+        return;
+      }
+      const data = await res.json();
+      document.getElementById('qrImg').src = data.qrDataURL;
+    }
+    fetchQR();
+
+    // Optional: poll every 10 seconds to get updated QR
+    setInterval(fetchQR, 10000);
+  </script>
+</body>
+</html>
